@@ -1,0 +1,107 @@
+Create Table Commands, just copy and paste into psql terminal. 
+-- USER table
+CREATE TABLE "User" (
+    Username VARCHAR(255) PRIMARY KEY,
+    Password VARCHAR(255) NOT NULL,
+    Name VARCHAR(255),
+    Birthday DATE,
+    Email VARCHAR(255),
+    Preferred_Size VARCHAR(50)
+);
+
+
+-- REVIEW table
+CREATE TABLE Review (
+    Review_ID SERIAL PRIMARY KEY,
+    Text TEXT,
+    Rating INTEGER
+);
+
+
+-- LISTING table
+CREATE TABLE Listing (
+    Listing_ID SERIAL PRIMARY KEY,
+    Size VARCHAR(50),
+    Shoe_SKU VARCHAR(255),
+    Description TEXT,
+    Price DECIMAL(10, 2),
+    Date DATE
+);
+
+
+-- SHOE table
+CREATE TABLE Shoe (
+    Shoe_SKU VARCHAR(255) PRIMARY KEY,
+    Quality VARCHAR(50),
+    Lowest_Listing_Price DECIMAL(10, 2),
+    Manufacturer VARCHAR(255)
+);
+
+
+-- TRANSACTION table
+CREATE TABLE Transaction (
+    Transaction_ID SERIAL PRIMARY KEY,
+    Sold_Price DECIMAL(10, 2),
+    Date DATE,
+    Buyer_Username VARCHAR(255) REFERENCES "User"(Username),
+    Seller_Username VARCHAR(255) REFERENCES "User"(Username)
+);
+
+
+-- ORDER table
+CREATE TABLE "Order" (
+    Order_ID SERIAL PRIMARY KEY,
+    Status VARCHAR(255),
+    Date DATE
+);
+
+
+-- SHIPMENT table
+CREATE TABLE Shipment (
+    Shipment_ID SERIAL PRIMARY KEY,
+    Tracking_Number VARCHAR(255),
+    Address VARCHAR(255),
+    Distributor VARCHAR(255)
+);
+
+
+-- SALE_HISTORY table (assuming a relation between Shoe and its sale history)
+CREATE TABLE Sale_History (
+    Shoe_SKU VARCHAR(255) REFERENCES Shoe(Shoe_SKU),
+    Name VARCHAR(255)
+);
+
+
+-- RELATIONAL TABLES 
+
+
+-- To represent the relationship between USER and REVIEW
+CREATE TABLE User_Reviews (
+    Username VARCHAR(255) REFERENCES "User"(Username),
+    Review_ID INTEGER REFERENCES Review(Review_ID),
+    PRIMARY KEY (Username, Review_ID)
+);
+
+
+-- To represent the relationship between ORDER and SHIPMENT
+CREATE TABLE Order_Shipment (
+    Order_ID INTEGER REFERENCES "Order"(Order_ID),
+    Shipment_ID INTEGER REFERENCES Shipment(Shipment_ID),
+    PRIMARY KEY (Order_ID, Shipment_ID)
+);
+
+
+-- To represent the relationship between USER and LISTING for 'BUYS' relationship
+CREATE TABLE User_Buys_Listing (
+    Username VARCHAR(255) REFERENCES "User"(Username),
+    Listing_ID INTEGER REFERENCES Listing(Listing_ID),
+    PRIMARY KEY (Username, Listing_ID)
+);
+
+
+-- To represent the relationship between USER and LISTING for 'POSTS' relationship
+CREATE TABLE User_Posts_Listing (
+    Username VARCHAR(255) REFERENCES "User"(Username),
+    Listing_ID INTEGER REFERENCES Listing(Listing_ID),
+    PRIMARY KEY (Username, Listing_ID)
+);
