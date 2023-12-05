@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} My Collection {% endblock %}</h1>
+    {% for Shoe in Shoes %}
+        <div class='shoe'>
+            <h3>Shoe_SKU: {{ Shoe[0] }}</h3>
+            <i><p>quality: {{Shoe[1] }}</p></i>
+            <i><p>manufacturer: {{Shoe[3] }}</p></i>
+        </div>
+    {% endfor %}
+{% endblock %}

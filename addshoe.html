@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Add shoes to Your Collection {% endblock %}</h1>
+    <form method="post">
+        <p>
+            <label for="shoe_sku">ShoeSKU</label>
+            <input type="text" name="shoe_sku"
+                   placeholder="Shoe_SKU">
+            </input>
+        </p>
+
+        <p>
+            <label for="quality">Quality</label>
+            <input type="text" name="quality"
+                   placeholder="Shoe Quality">
+            </input>
+        </p>
+
+         <p>
+            <label for="lowest_listing_price">Bought For</label>
+            <input type="text" name="lowest_listing_price"
+                   placeholder="Sell Price">
+            </input>
+        </p>
+
+        <p>
+            <label for="manufacturer">Shoe Brand</label>
+            <input type="text" name="manufacturer"
+                   placeholder="Brand">
+            </input>
+        </p>
+
+        <p>
+
+        <p>
+            <button type="submit">Submit</button>
+        </p>
+    </form>
+{% endblock %}

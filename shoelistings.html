@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Shoes For Sale {% endblock %}</h1>
+    {% for Listing in Listings %}
+        <div class='listing'>
+            <h3>ListingID: {{ Listing[0] }}</h3>
+            <h3>Shoe_SKU: {{ Listing[2] }}</h3>
+            <i><p>Name: {{Listing[3] }}</p></i>
+            <i><p>Size: {{Listing[1] }}</p></i>
+            <i><p>Price: {{Listing[4] }}</p></i>
+            <i><p>Date Posted: {{Listing[5] }}</p></i>
+        </div>
+    {% endfor %}
+{% endblock %}
